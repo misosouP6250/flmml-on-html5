@@ -27,7 +27,7 @@ var FlMMLonHTML5 = function () {
         return target;
     }
     
-    function FlMMLonHTML5(workerURL) {
+    function FlMMLonHTML5(workerURL, sRate, bufSize) {
         // 難読化されればFlMMLonHTML5の名前が変わる
         // (IEにFunction.nameはないけどどうせWeb Audioもない)
         if (!workerURL) {
@@ -46,8 +46,8 @@ var FlMMLonHTML5 = function () {
         
         worker.postMessage({
             type: FlMMLonHTML5.COM_BOOT,
-            sampleRate: FlMMLonHTML5.audioCtx.sampleRate,
-            bufferSize: FlMMLonHTML5.BUFFER_SIZE
+            sampleRate: (sRate !== undefined) ? sRate : FlMMLonHTML5.audioCtx.sampleRate,
+            bufferSize: (bufSize !== undefined) ? bufSize : FlMMLonHTML5.BUFFER_SIZE
         });
         this.setInfoInterval(125);
     }
